@@ -1,0 +1,8 @@
+{
+  "name": "myApp",
+  "version": "0.0.1",
+  "main": "users.js",
+  "dependencies": {
+    "express": "^4.5.1"
+  }
+}
