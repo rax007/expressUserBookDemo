@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     async = require('async'),
-    util = require('./util');
+    util = require('./../utils/util');
 
 
 //Define local host
@@ -15,12 +15,11 @@ userDBConn.on('error',function(err){
 
 
 userDBConn.once('open', function () {
-    console.log('source Database connection established!');
+    console.log('Database connection established!');
 });
 
 
-//Defined Schema of personSchema
-
+//Defined Schema of userSchema
 var userSchema = new mongoose.Schema({
     Name:{type: String, min:5, max:30},
     Age:{type:Number, max:45}

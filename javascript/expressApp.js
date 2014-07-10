@@ -11,6 +11,8 @@ var app = express();
 
 app.use(bodyParser());
 
+
+//###########################################  USER API  ##################################
 //Get all user list
 app.get('/user/:id?', function(req, res) {
 
@@ -34,42 +36,9 @@ app.get('/user/:id?', function(req, res) {
 
 });
 
-//Get all admin list
-app.get('/admin/:id?', function (req, res) {
-
-    admins.getAdminDetails(function (errr, result) {
-
-        if(!req.param('id'))
-        {
-            res.send(200, result);
-        }
-        else
-        {
-            var id = req.param('id');
-            for (var obj in result) {
-                if(result[obj]._id == id)
-                    res.send(200, result[obj]);
-            }
-        }
-    });
-
-});
-
 //save new user
 app.post('/user', function (req, res) {
     users.addUser(req.body, function (err, result) {
-        if(err) {
-            console.log('err: ',err);
-            res.send(400, err);
-        }
-        else
-        res.send(200, result)
-    })
-});
-
-//save new admin
-app.post('/admin', function (req, res) {
-    admins.addAdmin(req.body, function (err, result) {
         if(err) {
             console.log('err: ',err);
             res.send(400, err);
@@ -92,6 +61,54 @@ app.put('/user/:id', function (req, res) {
 
 });
 
+// user record deleted by ID
+app.delete('/user/:id', function (req, res) {
+    users.deleteRecord(req.param('id'), function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, " wrong ID Entered");
+        }
+        else
+            res.send(200, result )
+    })
+});
+
+
+//###########################################  ADMIN API  ##################################
+
+//Get all admin list
+app.get('/admin/:id?', function (req, res) {
+
+    admins.getAdminDetails(function (errr, result) {
+
+        if(!req.param('id'))
+        {
+            res.send(200, result);
+        }
+        else
+        {
+            var id = req.param('id');
+            for (var obj in result) {
+                if(result[obj]._id == id)
+                    res.send(200, result[obj]);
+            }
+        }
+    });
+
+});
+
+//save new admin
+app.post('/admin', function (req, res) {
+    admins.addAdmin(req.body, function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, err);
+        }
+        else
+            res.send(200, result)
+    })
+});
+
 //update admin by id
 app.put('/admin/:id', function (req, res) {
     admins.update(req.param('id'), req.body, function (err, result) {
@@ -105,9 +122,9 @@ app.put('/admin/:id', function (req, res) {
 
 });
 
-// user record deleted by ID
-app.delete('/user/:id', function (req, res) {
-    users.deleteRecord(req.param('id'), function (err, result) {
+app.delete('/admin/:id', function (req, res) {
+
+    admins.deleteRecord(req.param('id'), function (err, result) {
         if(err) {
             console.log('err: ',err);
             res.send(400, " wrong ID Entered");
@@ -117,9 +134,60 @@ app.delete('/user/:id', function (req, res) {
     })
 });
 
-app.delete('/admin/:id', function (req, res) {
+//###########################################  BOOK API  ##################################
 
-    admins.deleteRecord(req.param('id'), function (err, result) {
+//Get all book list
+app.get('/book/:id?', function(req, res) {
+
+    books.getBookDetails(function (errr, result) {
+
+        if(!req.param('id'))
+        {
+            res.send(200,result);
+        }
+        else
+        {
+            var id = req.param('id');
+            for (var obj in result) {
+                if(result[obj]._id == id)
+                    res.send(200, result[obj]);
+            }
+        }
+
+
+    });
+
+});
+
+//save new book
+app.post('/book', function (req, res) {
+    books.addbook(req.body, function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, err);
+        }
+        else
+            res.send(200, result)
+    })
+});
+
+//update user by id
+app.put('/book/:id', function (req, res) {
+    books.update(req.param('id'), req.body, function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, "Entered wrong ID");
+        }
+        else
+            res.send(200, result)
+    })
+
+});
+
+
+// user record deleted by ID
+app.delete('/book/:id', function (req, res) {
+    books.deleteRecord(req.param('id'), function (err, result) {
         if(err) {
             console.log('err: ',err);
             res.send(400, " wrong ID Entered");

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     async = require('async'),
-    util = require('./util');
+    util = require('./../utils/util');
 
 
 //Define local host
@@ -19,8 +19,7 @@ adminDBConn.once('open', function () {
 });
 
 
-//Defined Schema of personSchema
-
+//Defined Schema of adminSchema
 var adminSchema = new mongoose.Schema({
     Name:{type: String, min:5, max:30},
     Age:{type:Number, max:45}
