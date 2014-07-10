@@ -30,15 +30,28 @@ var adminSchema = new mongoose.Schema({
 var adminModal= adminDBConn.model('admins', adminSchema);
 
 
+//Adding data to admin modal
+var addAdmin = function (newAdminObj, callback) {
 
+    util.addDataToDB(newAdminObj, adminModal, function (err, res) {
+        if(err)
+        callback(err, null);
+        else
+        callback(null, "successfully saved");
 
-var newAdminObj = {
-    Name:'shreyance',
-    Age:24
+    });
 };
 
-//Adding data to admin modal
-//util.addDataToDB(newAdminObj, adminModal);
+//update user
+var updateAdmin = function (id, adminObj, callback) {
+
+    util.update(id, adminObj, adminModal, function (err, res) {
+        if(err)
+            callback(err, null);
+        else
+            callback(null, res);
+    });
+};
 
 var getAdminsDetails = function (callback) {
     util.getDetail(adminModal, function (err, res) {
@@ -46,4 +59,17 @@ var getAdminsDetails = function (callback) {
     })
 }
 
+
+var deleteRecord = function (id, callback) {
+    util.deleteRecord(id, adminModal, function (err, res) {
+        if(err)
+            callback(err, null);
+        else
+            callback(null, res);
+    })
+}
+
 module.exports.getAdminDetails = getAdminsDetails;
+module.exports.addAdmin = addAdmin;
+module.exports.update = updateAdmin;
+module.exports.deleteRecord = deleteRecord;

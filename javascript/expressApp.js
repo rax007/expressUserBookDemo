@@ -79,4 +79,54 @@ app.post('/admin', function (req, res) {
     })
 });
 
+//update user by id
+app.put('/user/:id', function (req, res) {
+    users.update(req.param('id'), req.body, function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, "Entered wrong ID");
+        }
+        else
+            res.send(200, result)
+    })
+
+});
+
+//update admin by id
+app.put('/admin/:id', function (req, res) {
+    admins.update(req.param('id'), req.body, function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, " wrong ID Entered");
+        }
+        else
+            res.send(200, result)
+    })
+
+});
+
+// user record deleted by ID
+app.delete('/user/:id', function (req, res) {
+    users.deleteRecord(req.param('id'), function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, " wrong ID Entered");
+        }
+        else
+            res.send(200, result )
+    })
+});
+
+app.delete('/admin/:id', function (req, res) {
+
+    admins.deleteRecord(req.param('id'), function (err, result) {
+        if(err) {
+            console.log('err: ',err);
+            res.send(400, " wrong ID Entered");
+        }
+        else
+            res.send(200, result )
+    })
+});
+
 app.listen(8888);

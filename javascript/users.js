@@ -32,13 +32,10 @@ var userModel= userDBConn.model('username', userSchema);
 
 //add user data to collection
 
-var newUserObj = {
-    Name:'amit',
-    Age:29
-};
-
-//Add data to user model
-//util.addDataToDB(newUserObj, userModel);
+//var newUserObj = {
+//    Name:'amit',
+//    Age:29
+//};
 
 
 var getUserDetails = function (callback) {
@@ -49,5 +46,38 @@ var getUserDetails = function (callback) {
         callback(err, res);
     });
 }
+var addUser = function (userObj, callback) {
 
+    util.addDataToDB(userObj, userModel, function (err, res) {
+        if(err)
+        {
+            callback(err, null);
+        }
+        else
+        callback(null, 'successfully saved');
+    })
+}
+
+//update user
+var updateUser = function (id, userObj, callback) {
+
+    util.update(id, userObj, userModel, function (err, res) {
+        if(err)
+        callback(err, null);
+        else
+        callback(null, res);
+    });
+};
+
+var deleteRecord = function (id, callback) {
+    util.deleteRecord(id, userModel, function (err, res) {
+        if(err)
+            callback(err, null);
+        else
+            callback(null, res);
+    })
+};
 module.exports.getUserDetails = getUserDetails;
+module.exports.addUser = addUser;
+module.exports.update = updateUser;
+module.exports.deleteRecord = deleteRecord;
