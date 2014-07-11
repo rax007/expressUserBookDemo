@@ -21,15 +21,38 @@ myApp.config(function ($routeProvider) {
 myApp.controller('userCtrl1', function ($scope, $http) {
     console.log('userCtrl');
 
-    var responsePromise = $http.get("http://localhost:8888/user");
+
+//    =======================================GET =================================
+//    var responsePromise = $http.get("http://localhost:8888/user");
+//
+//
+//    responsePromise.success(function (data, status, headers, config) {
+//        $scope.userList = data;
+//
+//    });
+//    responsePromise.error(function (data, status, headers, config) {
+//        alert("AJAX failed!");
+//    });
+
+
+//    ================================  POST  ==============================================
+    var obj = {
+                Name:'sandeep',
+                Age:32
+              };
+
+    var responsePromise = $http.post("http://localhost:8888/user",obj);
 
 
     responsePromise.success(function (data, status, headers, config) {
-        console.log('data: ', data);
+        console.log('POST: ',data);
+//        $scope.userList = data;
+
     });
     responsePromise.error(function (data, status, headers, config) {
         alert("AJAX failed!");
     });
+
 });
 
 
